@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joshua Schulz — Instructional Designer & Educator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f4f0e8;
+    --accent: #c84b2f;
+    --accent2: #2b6b8a;
+    --muted: #6b6860;
+    --rule: #d4cfc4;
+    --card: #ede9e0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--rule);
+    padding: 0 clamp(24px, 6vw, 80px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .header-main {
+    padding: 60px 0 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: end;
+  }
+
+  .header-title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .header-title h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+    line-height: 1.8;
+  }
+
+  .header-intro {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink);
+    border-left: 1px solid var(--rule);
+    padding-left: 40px;
+  }
+
+  .header-intro strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .contact-strip {
+    display: flex;
+    gap: 32px;
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .contact-strip a {
+    color: var(--accent2);
+    text-decoration: none;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    z-index: 100;
+    padding: 0 clamp(24px, 6vw, 80px);
+  }
+
+  nav ul {
+    display: flex;
+    gap: 0;
+    list-style: none;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 16px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-right: 1px solid var(--rule);
+    transition: color 0.2s, background 0.2s;
+  }
+
+  nav ul li:first-child a { border-left: 1px solid var(--rule); }
+
+  nav ul li a:hover {
+    color: var(--ink);
+    background: var(--card);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px clamp(24px, 6vw, 80px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 40px;
+  }
+
+  h2 em { font-style: italic; color: var(--accent); }
+
+  /* PHILOSOPHY */
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 48px;
+  }
+
+  .philosophy-card {
+    background: var(--paper);
+    padding: 40px 32px;
+    position: relative;
+  }
+
+  .philosophy-card .number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--rule);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .philosophy-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .philosophy-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .philosophy-intro {
+    font-size: 18px;
+    line-height: 1.85;
+    max-width: 780px;
+  }
+
+  /* WORK SAMPLES */
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .work-card {
+    background: var(--paper);
+    padding: 40px;
+  }
+
+  .work-card:hover { background: var(--card); }
+
+  .work-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .work-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .work-card p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .work-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+    margin-top: 16px;
+  }
+
+  .work-detail {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--card);
+    border-left: 3px solid var(--accent2);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .work-detail strong { color: var(--accent2); font-weight: 500; }
+
+  /* COURSES */
+  .courses-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .courses-institution {
+    background: var(--paper);
+    padding: 32px;
+  }
+
+  .courses-institution h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .courses-institution .inst-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .courses-institution ul {
+    list-style: none;
+  }
+
+  .courses-institution ul li {
+    font-size: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .courses-institution ul li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* EVALUATIONS */
+  .eval-intro {
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 680px;
+    margin-bottom: 48px;
+  }
+
+  .eval-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+
+  .eval-card {
+    background: var(--paper);
+    padding: 28px;
+  }
+
+  .eval-card .category {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .eval-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eval-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .eval-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  .eval-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+
+  .trend-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 0.08em;
+  }
+
+  /* QUOTES */
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .quote-card {
+    background: var(--paper);
+    padding: 40px;
+    position: relative;
+  }
+
+  .quote-card:nth-child(odd) { background: var(--card); }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--rule);
+    line-height: 0.8;
+    margin-bottom: 8px;
+    font-weight: 900;
+  }
+
+  .quote-card blockquote {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  .quote-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* GAME DEV SECTION */
+  .game-section {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .game-section .section-label { color: var(--accent); }
+  .game-section h2 { color: var(--paper); }
+  .game-section h2 em { color: var(--accent); }
+
+  .game-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .game-text p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #b0aa9e;
+    margin-bottom: 20px;
+  }
+
+  .game-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+  }
+
+  .game-skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #333;
+    border: 1px solid #333;
+  }
+
+  .game-skill {
+    background: #222;
+    padding: 24px;
+  }
+
+  .game-skill .skill-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .game-skill p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px clamp(24px, 6vw, 80px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--rule);
+  }
+
+  footer .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  footer .footer-contact {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-align: right;
+    line-height: 2;
+  }
+
+  footer .footer-contact a {
+    color: var(--accent2);
+    text-decoration: none;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; }
+  .fade-up:nth-child(4) { animation-delay: 0.4s; }
+
+  @media (max-width: 768px) {
+    .header-main { grid-template-columns: 1fr; }
+    .header-intro { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 32px; }
+    .philosophy-grid, .courses-layout { grid-template-columns: 1fr; }
+    .work-grid, .quotes-grid, .game-content, .game-skills { grid-template-columns: 1fr; }
+    .contact-strip { flex-wrap: wrap; gap: 16px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    footer .footer-contact { text-align: center; }
+    nav ul { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <span>Instructional Designer & Educator</span>
+    <span>Portfolio — 2025</span>
+  </div>
+  <div class="header-main">
+    <div class="header-title fade-up">
+      <h1>Joshua<br><em>Schulz</em></h1>
+      <div class="header-subtitle">
+        M.S. Computer Science · 4.0 GPA<br>
+        Curriculum Design · Story-Driven Learning<br>
+        CS Education · Game Systems Design
+      </div>
+    </div>
+    <div class="header-intro fade-up">
+      <p>I design learning experiences that make the complex feel <strong>navigable</strong>. As a university CS instructor and independent game developer, I've spent years studying how people engage with difficult systems — and how to build the scaffolding that helps them succeed.</p>
+      <p style="margin-top:16px; font-size:15px; color:var(--muted);">My work spans university curriculum design, project-based learning, and interactive software systems. The thread connecting all of it: <strong>clarity, story, and learner agency</strong>.</p>
+    </div>
+  </div>
+  <div class="contact-strip">
+    <span>joshaschulz@gmail.com</span>
+    <span>+1 (360) 520-6771</span>
+    <a href="https://store.steampowered.com/app/4306220/Fishy_Business/" target="_blank">↗ Fishy Business on Steam</a>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <ul>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#work">Work Samples</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#evaluations">Evaluations</a></li>
+    <li><a href="#voices">Student Voices</a></li>
+    <li><a href="#game">Game Dev</a></li>
+  </ul>
+</nav>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="section-label">Design Philosophy</div>
+  <h2>How I Think About <em>Learning</em></h2>
+  <p class="philosophy-intro">Good instructional design is invisible. The learner doesn't notice the scaffolding — they only notice that they suddenly understand something they didn't before. I build toward that moment through three interconnected principles.</p>
+  <div class="philosophy-grid">
+    <div class="philosophy-card">
+      <div class="number">01</div>
+      <h3>Understand the Learner First</h3>
+      <p>Before designing anything, I work to understand who is learning, why it matters to them, and where they're starting from. Instruction built without this foundation is guesswork. I use observation, feedback, and iterative refinement to stay calibrated to real learners.</p>
+    </div>
+    <div class="philosophy-card">
+      <div class="number">02</div>
+      <h3>Clarity Over Completeness</h3>
+      <p>Complex material doesn't need to be delivered in full complexity. I break concepts into their smallest meaningful components, sequence them for progressive understanding, and resist the temptation to cover everything at the expense of understanding anything.</p>
+    </div>
+    <div class="philosophy-card">
+      <div class="number">03</div>
+      <h3>Learning Through Doing</h3>
+      <p>Passive content consumption rarely transfers. I design for active engagement — projects, creative challenges, iterative practice. Learners should feel the material, not just encounter it. Real skill comes from making and failing and making again in a safe environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK SAMPLES -->
+<section id="work">
+  <div class="section-label">Work Samples</div>
+  <h2>Designed <em>Learning Experiences</em></h2>
+  <div class="work-grid">
+
+    <div class="work-card">
+      <span class="work-tag">Curriculum Design · Python · Undergraduate</span>
+      <h3>CS101 — Intro to Computer Programming</h3>
+      <p>A complete introductory programming course designed from scratch for first-year university students. The course deliberately eliminates traditional exams in favor of weekly hands-on assignments and a final creative project — reducing test anxiety while increasing applied skill development.</p>
+      <div class="work-detail">
+        <strong>Design decision:</strong> Giving students full creative control over their final project, graded on ambition rather than perfection. This reframes the final assessment as a capstone of self-directed learning rather than a high-stakes evaluation event.
+      </div>
+      <div class="work-meta">
+        Python · Canvas LMS · Project-Based Assessment · 17-Week Sequence<br>
+        Avg. evaluation score: <strong>4.74 / 5.0</strong> (Spring 2025)
+      </div>
+    </div>
+
+    <div class="work-card">
+      <span class="work-tag">Activity Design · UI/UX · Software Engineering</span>
+      <h3>UI Mockup Practice — Figma Activity</h3>
+      <p>A hands-on learning activity for a Software Engineering course that introduces UI design principles through direct imitation and reconstruction. Students choose a real app, recreate its interface in Figma, then reflect on their process.</p>
+      <div class="work-detail">
+        <strong>Design decision:</strong> Graded entirely on effort and reflection, not accuracy or artistic skill. The instructor modeled the task publicly — showing their own TikTok recreation — removing the intimidation barrier before students began.
+      </div>
+      <div class="work-meta">
+        Figma · Reflective Practice · Scaffolded Modeling · Individual Assignment<br>
+        Course: CS445 Software Engineering
+      </div>
+    </div>
+
+    <div class="work-card">
+      <span class="work-tag">Program Design · Game Development · Multi-Course</span>
+      <h3>Video Game Development Degree Program</h3>
+      <p>Contributed to the design and launch of a new Video Game Development degree program at Southeast Missouri State University. Designed multiple courses from scratch, aligning learning outcomes with both academic standards and industry practices in game development.</p>
+      <div class="work-detail">
+        <strong>Design decision:</strong> Each course was built around a project spine — students work iteratively on a single project throughout the semester, applying each new concept as it's taught rather than treating topics in isolation.
+      </div>
+      <div class="work-meta">
+        Unity3D · C# · Game Design Theory · Industry Alignment · Multi-Semester
+      </div>
+    </div>
+
+    <div class="work-card">
+      <span class="work-tag">Advanced Course Design · AI · Emerging Tech</span>
+      <h3>AI for Game Developers</h3>
+      <p>Designed and delivered a specialized course on artificial intelligence concepts within the context of game development at Grand Canyon University. The course introduced machine learning fundamentals, pathfinding algorithms, and procedural generation through hands-on game projects.</p>
+      <div class="work-detail">
+        <strong>Design decision:</strong> Grounding abstract AI concepts in immediately playable game contexts. Every concept was introduced through a working demo students could interact with before studying the underlying mechanics.
+      </div>
+      <div class="work-meta">
+        AI/ML Concepts · Game Engines · Applied Learning · Grand Canyon University
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="section-label">Teaching Record</div>
+  <h2>Courses <em>Designed & Taught</em></h2>
+  <div class="courses-layout">
+
+    <div class="courses-institution">
+      <h3>2022 — Present</h3>
+      <div class="inst-name">Southeast Missouri<br>State University</div>
+      <ul>
+        <li>Game Programming I</li>
+        <li>Introduction to Game Development</li>
+        <li>Software Engineering</li>
+        <li>Introduction to Computer Science</li>
+        <li>Mobile Application Development</li>
+        <li>Discrete Structures I</li>
+      </ul>
+    </div>
+
+    <div class="courses-institution">
+      <h3>2023</h3>
+      <div class="inst-name">Grand Canyon<br>University</div>
+      <ul>
+        <li>Virtual Reality & Game Development</li>
+        <li>Intro to CS & Information Technology</li>
+        <li>AI for Game Developers</li>
+      </ul>
+    </div>
+
+    <div class="courses-institution">
+      <h3>2021 — 2022</h3>
+      <div class="inst-name">Saint Martin's<br>University</div>
+      <ul>
+        <li>Game Development with HCI</li>
+        <li>Video Game Development</li>
+        <li>Constructing Educational Software</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EVALUATIONS -->
+<section id="evaluations">
+  <div class="section-label">Learning Impact</div>
+  <h2>Student Evaluation <em>Data</em></h2>
+  <p class="eval-intro">Evaluation scores from Southeast Missouri State University (2022–2025), scored out of 5.0. Average scores reflect consistent improvement over four years of teaching, with 2025 scores averaging <strong>4.79 / 5.0</strong> across all categories.</p>
+
+  <div class="eval-grid">
+    <div class="eval-card">
+      <div class="category">Expectations Clearly Communicated</div>
+      <div class="eval-bar-wrap">
+        <div class="eval-bar"><div class="eval-bar-fill" style="width:96.2%"></div></div>
+        <div class="eval-score">4.81</div>
+      </div>
+    </div>
+    <div class="eval-card">
+      <div class="category">Instructor Interested in Teaching</div>
+      <div class="eval-bar-wrap">
+        <div class="eval-bar"><div class="eval-bar-fill" style="width:96.8%"></div></div>
+        <div class="eval-score">4.84</div>
+      </div>
+    </div>
+    <div class="eval-card">
+      <div class="category">Responsive to Student Questions</div>
+      <div class="eval-bar-wrap">
+        <div class="eval-bar"><div class="eval-bar-fill" style="width:96.4%"></div></div>
+        <div class="eval-score">4.82</div>
+      </div>
+    </div>
+    <div class="eval-card">
+      <div class="category">Knowledge & Abilities Increased</div>
+      <div class="eval-bar-wrap">
+        <div class="eval-bar"><div class="eval-bar-fill" style="width:94.8%"></div></div>
+        <div class="eval-score">4.74</div>
+      </div>
+    </div>
+    <div class="eval-card">
+      <div class="category">Timely Feedback on Performance</div>
+      <div class="eval-bar-wrap">
+        <div class="eval-bar"><div class="eval-bar-fill" style="width:96.4%"></div></div>
+        <div class="eval-score">4.82</div>
+      </div>
+    </div>
+    <div class="eval-card">
+      <div class="category">Subject Matter Communicated Clearly</div>
+      <div class="eval-bar-wrap">
+        <div class="eval-bar"><div class="eval-bar-fill" style="width:95.8%"></div></div>
+        <div class="eval-score">4.79</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="trend-note">↑ Consistent improvement from 2022 baseline — 2025 scores represent highest ratings across all categories in four-year record. 38 student responses (Spring 2025).</p>
+</section>
+
+<!-- STUDENT VOICES -->
+<section id="voices">
+  <div class="section-label">Student Voices</div>
+  <h2>In Their Own <em>Words</em></h2>
+  <div class="quotes-grid">
+    <div class="quote-card">
+      <div class="quote-mark">"</div>
+      <blockquote>Fantastic instructor! Very responsive and quick. The instruction with live meetings, recorded meetings, and videos was top notch to make sure students understand the material and assignments. He is always willing to help in order for us to understand and succeed.</blockquote>
+      <div class="quote-source">IS360 Mobile Application Development Student</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-mark">"</div>
+      <blockquote>I typically don't bother with evaluations but I've honestly learned so much in this class. Hats off to Professor Schulz.</blockquote>
+      <div class="quote-source">CS373 Game Programming I Student</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-mark">"</div>
+      <blockquote>Josh was very keen on receiving feedback, suggestions and ideas from students. He gave us a survey midway through the course — a platform to express any comments, concerns, or to simply just check in with him anonymously.</blockquote>
+      <div class="quote-source">CS101 Intro to Computer Programming Student</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-mark">"</div>
+      <blockquote>I have always wanted to learn about computer science and this course has taught me a lot and inspires me to learn more and accumulate as much knowledge as I can.</blockquote>
+      <div class="quote-source">CS101 Intro to Computer Programming Student</div>
+    </div>
+  </div>
+</section>
+
+<!-- GAME DEV -->
+<section id="game" class="game-section">
+  <div class="section-label">Industry Practice</div>
+  <h2>Making Games, <em>Understanding Systems</em></h2>
+  <div class="game-content">
+    <div class="game-text">
+      <p>Since 2018, I've worked independently as a game developer under Kraken Inkwell. My current project, Fishy Business, is a published commercial game on Steam — an open-ended economic simulation designed around emergent player decision-making.</p>
+      <p>Building games is, at its core, an instructional design problem. Every system I design is a question: how do I present this complexity in a way that feels navigable, not overwhelming? How do I scaffold player understanding so they feel capable without feeling hand-held? How do I create feedback loops that keep people engaged?</p>
+      <p>These questions map directly onto how I think about learning design. The difference between a good game and a good course is smaller than most people think.</p>
+      <a href="https://store.steampowered.com/app/4306220/Fishy_Business/" target="_blank" class="game-link">View Fishy Business on Steam ↗</a>
+    </div>
+    <div class="game-skills">
+      <div class="game-skill">
+        <div class="skill-label">Systems Design</div>
+        <p>Adaptive economies, rule engines, player progression, feedback loops</p>
+      </div>
+      <div class="game-skill">
+        <div class="skill-label">Technical Skills</div>
+        <p>C#, Java, Python, Unity3D, Git, Figma, HTML/CSS</p>
+      </div>
+      <div class="game-skill">
+        <div class="skill-label">ID Parallels</div>
+        <p>Scaffolded complexity, learner agency, iterative refinement</p>
+      </div>
+      <div class="game-skill">
+        <div class="skill-label">Research</div>
+        <p>Player behavior analysis, engagement patterns, experimental design</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Joshua Schulz</div>
+  <div class="footer-contact">
+    <a href="mailto:joshaschulz@gmail.com">joshaschulz@gmail.com</a><br>
+    +1 (360) 520-6771<br>
+    Pe Ell, Washington, USA
+  </div>
+</footer>
+
+</body>
+</html>
